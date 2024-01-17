@@ -69,3 +69,15 @@ services:
   #     - db
   #   networks:
   #     - laravel_network
+
+  python-app-dashboard:
+    container_name: python_app_dashboard
+    build: ./src/mrm-fastapi
+    ports:
+      - 8000:8000
+      - 8050:8050
+    volumes:
+      - ./src/mrm-fastapi:/app
+    command: bash -c "/app/setup_new_pyproject.sh"
+    networks:
+      - laravel_network
