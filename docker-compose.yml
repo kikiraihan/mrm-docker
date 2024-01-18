@@ -78,6 +78,16 @@ services:
       - 8050:8050
     volumes:
       - ./src/mrm-fastapi:/app
+    # environment:
+    #   # app.py
+    #   - MYSQL_DB_HOST=laravel_mysql
+    #   - MYSQL_DB_USER=root
+    #   - MYSQL_DB_PASS=root
+    #   - MYSQL_DB_DATABASE=cobafilament
+    #   - MYSQL_DB_PORT=3306
+    #   - ALLOW_URL_LARAVEL=http://localhost:8000
+    #   # app_dash.py
+    #   - MYSQL_DB_URI=mysql+pymysql://root:root@127.0.0.1:3306/cobafilament
     command: bash -c "/app/setup_new_pyproject.sh"
     networks:
       - laravel_network
