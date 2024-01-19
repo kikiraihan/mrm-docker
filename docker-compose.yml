@@ -41,9 +41,9 @@ services:
       - .docker/db/sql:/docker-entrypoint-initdb.d
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: laravel_db_name
-      MYSQL_USER: laravel_db_user
-      MYSQL_PASSWORD: laravel_db_pass
+      MYSQL_DATABASE: cobafilament
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
     networks:
       - laravel_network
 
@@ -78,16 +78,18 @@ services:
       - 8050:8050
     volumes:
       - ./src/mrm-fastapi:/app
-    # environment:
-    #   # app.py
-    #   - MYSQL_DB_HOST=laravel_mysql
-    #   - MYSQL_DB_USER=root
-    #   - MYSQL_DB_PASS=root
-    #   - MYSQL_DB_DATABASE=cobafilament
-    #   - MYSQL_DB_PORT=3306
-    #   - ALLOW_URL_LARAVEL=http://localhost:8000
-    #   # app_dash.py
-    #   - MYSQL_DB_URI=mysql+pymysql://root:root@127.0.0.1:3306/cobafilament
+    environment:
+      # app.py
+      - MYSQL_DB_HOST=laravel_mysql
+      - MYSQL_DB_USER=root
+      - MYSQL_DB_PASS=root
+      - MYSQL_DB_DATABASE=cobafilament
+      - MYSQL_DB_PORT=3306
+      - ALLOW_URL_LARAVEL=http://localhost:8000
+      # app_dash.py
+      - MYSQL_DB_URI=mysql+pymysql://root:root@laravel_mysql:3306/cobafilament
     command: bash -c "/app/setup_new_pyproject.sh"
+    depends_on:
+      - db
     networks:
       - laravel_network
